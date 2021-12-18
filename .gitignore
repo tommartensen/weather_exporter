@@ -1,0 +1,7 @@
+# Configuration
+.env
+cities.yaml
+
+# Go
+vendor/
+weather_exporter

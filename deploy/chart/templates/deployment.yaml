@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+      annotations:
+        prometheus.io/scrape: "true"
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ .Values.image }}:{{ .Chart.Version }}
+        imagePullPolicy: Always
+        ports:
+        - name: http
+          containerPort: {{ .Values.containerPort }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: {{ .Values.containerPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        env:
+          - name: OPENWEATHER_API_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Release.Name }}-tokens
+                key: openweather_api_token
+        volumeMounts:
+          - name: config-volume
+            mountPath: /config
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Release.Name }}-cities
+    

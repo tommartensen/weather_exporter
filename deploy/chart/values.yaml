@@ -1,0 +1,12 @@
+---
+openweatherApiToken: 74164817461287461875afa
+
+image: tommartensen/weather_exporter
+containerPort: 9966
+replicas: 1
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: false
