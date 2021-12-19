@@ -20,8 +20,8 @@ func Serve(w http.ResponseWriter, r *http.Request) {
 
 func gatherRelevantMetrics(weatherReport weatherapi.WeatherReport) map[string]interface{} {
 	return map[string]interface{}{
-		"temperature":           KelvinToCelsius(weatherReport.Main.Temperature),
-		"temperature_perceived": KelvinToCelsius(weatherReport.Main.TemperaturePerceived),
+		"temperature":           convertKelvinToCelsius(weatherReport.Main.Temperature),
+		"temperature_perceived": convertKelvinToCelsius(weatherReport.Main.TemperaturePerceived),
 		"humidity":              weatherReport.Main.Humidity,
 		"pressure":              weatherReport.Main.Pressure,
 		"wind_speed":            weatherReport.Wind.Speed,
@@ -35,7 +35,7 @@ func writeWeatherReport(w http.ResponseWriter, city config.City, weatherReport w
 
 	output := ""
 	for metric, value := range relevantMetrics {
-		output += FormatMetric(metric, city, value)
+		output += formatMetric(metric, city, value)
 	}
 	fmt.Fprint(w, output)
 }
