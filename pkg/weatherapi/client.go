@@ -15,7 +15,7 @@ type OpenWeatherClient struct {
 	ApiToken string
 }
 
-type weatherReport struct {
+type WeatherReport struct {
 	Coordinates struct {
 		Longitude float32 `json:"lon"`
 		Latitude  float32 `json:"lat"`
@@ -72,15 +72,15 @@ func buildApiUrl(openWeatherClient *OpenWeatherClient, city config.City) string 
 	)
 }
 
-func parseResponse(body []byte) weatherReport {
-	openWeatherApiResponse := weatherReport{}
+func parseResponse(body []byte) WeatherReport {
+	openWeatherApiResponse := WeatherReport{}
 	if err := json.Unmarshal(body, &openWeatherApiResponse); err != nil {
 		log.Fatal(err)
 	}
 	return openWeatherApiResponse
 }
 
-func GetCurrentWeather(openWeatherClient *OpenWeatherClient, city config.City) weatherReport {
+func GetCurrentWeather(openWeatherClient *OpenWeatherClient, city config.City) WeatherReport {
 	url := buildApiUrl(openWeatherClient, city)
 	resp, err := http.Get(url)
 	if err != nil {
