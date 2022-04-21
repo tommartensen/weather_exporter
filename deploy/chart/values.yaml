@@ -10,3 +10,4 @@ service:
 
 ingress:
   enabled: false
+  host: weatherexporter.local

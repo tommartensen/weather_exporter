@@ -10,6 +10,7 @@ import (
 func main() {
 	http.Handle("/", http.FileServer(http.Dir("./dist")))
 	http.HandleFunc("/healthz", exporter.Healthcheck)
+	http.HandleFunc("/healthz/api", exporter.ApiHealthcheck)
 	http.HandleFunc("/metrics", exporter.Serve)
 
 	log.Fatal(http.ListenAndServe(":9966", nil))

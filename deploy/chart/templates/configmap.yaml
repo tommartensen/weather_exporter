@@ -11,3 +11,6 @@ data:
         countryCode: DE
       - name: Bad Segeberg
         countryCode: DE
+    defaultCity:
+      name: Potsdam
+      countryCode: DE

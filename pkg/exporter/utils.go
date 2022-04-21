@@ -2,6 +2,7 @@ package exporter
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/tommartensen/weather_exporter/pkg/config"
 )
@@ -15,4 +16,8 @@ func formatMetric(name string, city config.City, value interface{}) string {
 		"weather_%s{city=\"%s\"} %.2v\n",
 		name, city.Name, value,
 	)
+}
+
+func currentTime() int64 {
+	return time.Now().Unix()
 }

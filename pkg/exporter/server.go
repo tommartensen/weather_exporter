@@ -20,13 +20,14 @@ func Serve(w http.ResponseWriter, r *http.Request) {
 
 func gatherRelevantMetrics(weatherReport weatherapi.WeatherReport) map[string]interface{} {
 	return map[string]interface{}{
+		"cloud_cover":           weatherReport.CloudCover.All,
+		"humidity":              weatherReport.Main.Humidity,
+		"last_update":           currentTime(),
+		"pressure":              weatherReport.Main.Pressure,
 		"temperature":           convertKelvinToCelsius(weatherReport.Main.Temperature),
 		"temperature_perceived": convertKelvinToCelsius(weatherReport.Main.TemperaturePerceived),
-		"humidity":              weatherReport.Main.Humidity,
-		"pressure":              weatherReport.Main.Pressure,
 		"wind_speed":            weatherReport.Wind.Speed,
 		"wind_degree":           weatherReport.Wind.Degree,
-		"cloud_cover":           weatherReport.CloudCover.All,
 	}
 }
 

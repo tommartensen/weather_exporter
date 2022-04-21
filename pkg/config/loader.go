@@ -15,7 +15,8 @@ type City struct {
 }
 
 type weatherConfiguration struct {
-	Cities []City `yaml:"cities"`
+	Cities      []City `yaml:"cities"`
+	DefaultCity City   `yaml:"defaultCity"`
 }
 
 type environment struct {
